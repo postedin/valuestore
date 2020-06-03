@@ -175,10 +175,6 @@ class Valuestore implements ArrayAccess, Countable
      */
     public function all() : array
     {
-        if (! file_exists($this->fileName)) {
-            return [];
-        }
-
         if (! $this->data) {
             $this->data = json_decode(DB::table('settings_json')->first()->value, true);
         }
