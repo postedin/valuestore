@@ -1,6 +1,7 @@
 {
     "name": "spatie/valuestore",
     "description": "Easily store some values",
+    "version": "1.2.4",
     "keywords": [
         "spatie",
         "valuestore",
