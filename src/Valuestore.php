@@ -4,6 +4,7 @@ namespace Spatie\Valuestore;
 
 use Countable;
 use ArrayAccess;
+use Illuminate\Support\Facades\DB;
 
 class Valuestore implements ArrayAccess, Countable
 {
@@ -175,8 +176,12 @@ class Valuestore implements ArrayAccess, Countable
         if (! file_exists($this->fileName)) {
             return [];
         }
+        
+        if (! $this->data) {
+            $this->data = json_decode(DB::table('settings-json')->first()->json, true);
+        }
 
-        return json_decode(file_get_contents($this->fileName), true);
+        return $this->data;
     }
 
     /**
@@ -382,11 +387,7 @@ class Valuestore implements ArrayAccess, Countable
      */
     protected function setContent(array $values)
     {
-        file_put_contents($this->fileName, json_encode($values));
-
-        if (! count($values)) {
-            unlink($this->fileName);
-        }
+        DB::table('settings-json')->update('value', json_encode($values));
 
         return $this;
     }
