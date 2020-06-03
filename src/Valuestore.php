@@ -10,7 +10,7 @@ class Valuestore implements ArrayAccess, Countable
 {
     /** @var string */
     protected $fileName;
-    
+
     private $data;
 
     /**
@@ -178,7 +178,7 @@ class Valuestore implements ArrayAccess, Countable
         if (! file_exists($this->fileName)) {
             return [];
         }
-        
+
         if (! $this->data) {
             $this->data = json_decode(DB::table('settings_json')->first()->value, true);
         }
@@ -389,7 +389,9 @@ class Valuestore implements ArrayAccess, Countable
      */
     protected function setContent(array $values)
     {
-        DB::table('settings_json')->update('value', json_encode($values));
+        DB::table('settings_json')->update(['value' => json_encode($values)]);
+
+        $this->data = null;
 
         return $this;
     }
