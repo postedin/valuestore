@@ -178,7 +178,7 @@ class Valuestore implements ArrayAccess, Countable
         }
         
         if (! $this->data) {
-            $this->data = json_decode(DB::table('settings-json')->first()->json, true);
+            $this->data = json_decode(DB::table('settings_json')->first()->value, true);
         }
 
         return $this->data;
@@ -387,7 +387,7 @@ class Valuestore implements ArrayAccess, Countable
      */
     protected function setContent(array $values)
     {
-        DB::table('settings-json')->update('value', json_encode($values));
+        DB::table('settings_json')->update('value', json_encode($values));
 
         return $this;
     }
