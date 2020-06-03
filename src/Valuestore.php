@@ -10,6 +10,8 @@ class Valuestore implements ArrayAccess, Countable
 {
     /** @var string */
     protected $fileName;
+    
+    private $data;
 
     /**
      * @param string $fileName
